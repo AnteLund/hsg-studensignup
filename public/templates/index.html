@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Capgemini student signup!</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../static/bootstrap/css/theme/flatly/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="../static/bootstrap/css/jumbotron-narrow.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="header">
+        <h3 class="text-muted">Capgemini student signup</h3>
+      </div>
+
+      <div id="signupSuccess" class="alert alert-success" style="display:none">
+        <p id="signupSuccessText">Thanks for signing up!</p>
+      </div>
+      <div id="signupDuplicate" class="alert alert-success" style="display:none">
+        <p id="signupDuplicateText">Fear not, you're already on the list!</p>
+      </div>
+      <div id="signupError" class="alert alert-info" style="display:none">
+        <p id="signupErrorText">Well this is embarrassing. It looks like we're having trouble getting you on the list.</p>
+      </div>
+      <div class="jumbotron">
+        <h1>Capgemini</h1>
+        <p class="lead">NICE ATT DU VILL VA ME!</p>
+        <p><a class="btn btn-lg btn-success"  data-toggle="modal" href="#signupModal">Sign up today</a></p>
+      </div>
+
+
+      <div class="footer">
+        <p>&copy; Capgemini Sweden 2016</p>
+      </div>
+
+         <div class="form-group">
+           <label for="email">Email address</label>
+           <input type="email" class="form-control" id="email" name="email" placeholder="Your email address">
+         </div>
+         <div class="form-group">
+           <label for="education">Education</label>
+           <input type="email" class="form-control" id="email" name="email" placeholder="Your email address">
+         </div>
+         <div class="form-group">
+           <label for="previewAccess">Expected year of graduation</label>
+           <select class="form-control" name="previewAccess">
+             <option>2016</option>
+             <option>2017</option>
+             <option>2018</option>
+             <option>2019</option>
+             <option>2020</option>
+           </select>
+         </div>
+       <button id="signup" type="button" class="btn btn-primary">Sign Up!</button>
+    </div> <!-- /container -->
+
+    <script src="../static/jquery/jquery.js"></script>
+    <script src="../static/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+      $("#signup").click(function() {
+        $.post( "/signup", $("#signupForm").serialize(),
+                function(data) {
+                  $("#signupSuccess").show();
+                }
+              )
+              .error(function(xhr) {
+                switch(xhr.status) {
+                  case 409:
+                    $("#signupDuplicate").show();
+                    break;
+                  default:
+                    $("#signupError").show();
+                }
+              })
+              .always(function() {
+                $("#signupModal").modal('hide');
+              });
+      })
+    })
+    </script>
+  </body>
+</html>

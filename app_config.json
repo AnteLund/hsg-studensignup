@@ -1,0 +1,5 @@
+{
+  "AWS_REGION": "eu-west-1",
+  "STARTUP_SIGNUP_TABLE": "hsg-student",
+  "NEW_SIGNUP_TOPIC": ""
+}
